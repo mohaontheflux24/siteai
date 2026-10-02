@@ -1,8 +1,8 @@
-import { sites } from "@/lib/site/store";
+import { listSites } from "@/lib/site/store";
 export const dynamic="force-dynamic";
 // TODO avant mise en production : protéger cette page (authentification admin).
-export default function Dashboard(){
-  const rows=[...sites.values()].sort((a,b)=>b.createdAt.localeCompare(a.createdAt));
+export default async function Dashboard(){
+  const rows=await listSites();
   return <main className="mx-auto max-w-5xl px-6 py-16"><h1 className="text-4xl">Tableau de bord</h1>
     <p className="mt-2 text-[var(--muted)]">{rows.length} site{rows.length>1?"s":""} généré{rows.length>1?"s":""}</p>
     {rows.length===0?<p className="mt-10 text-[var(--muted)]">Aucun site pour l'instant. Créez-en un depuis l'accueil.</p>:
