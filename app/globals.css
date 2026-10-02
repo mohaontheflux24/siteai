@@ -1,0 +1,9 @@
+@import "tailwindcss";
+:root{--paper:#F2F4F0;--ink:#12231E;--muted:#5C6B65;--line:#D5DBD4;--brand:#1F6F5C;--brand-ink:#fff;--card:#FBFCFA}
+@media (prefers-color-scheme:dark){:root{--paper:#0E1714;--ink:#E8EEEA;--muted:#93A39B;--line:#233630;--brand:#4DB89B;--brand-ink:#08140F;--card:#13201C}}
+body{background:var(--paper);color:var(--ink);font-family:"Avenir Next","Segoe UI",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+h1,h2{font-family:"Iowan Old Style","Palatino Linotype",Georgia,serif;letter-spacing:-.02em}
+:focus-visible{outline:2px solid var(--brand);outline-offset:3px}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.rise{animation:rise .6s ease-out both}
+@media (prefers-reduced-motion:reduce){.rise{animation:none}}
