@@ -4,7 +4,7 @@ export const templates=["modern","premium","minimal","bold","restaurant","coiffe
 const build=(color:z.ZodString)=>z.object({
   template:z.enum(templates),
   business:z.object({name:z.string(),category:z.string(),city:z.string(),address:opt,phone:opt,website:opt,email:opt,openingHours:z.array(z.string()).optional(),socialLinks:z.array(z.string()).optional()}),
-  branding:z.object({logo:opt,primaryColor:color,secondaryColor:color,font:z.enum(["serif","sans"]),style:z.string()}),
+  branding:z.object({logo:opt,primaryColor:color,secondaryColor:color,font:z.enum(["serif","sans"]),style:z.string(),mode:z.enum(["light","dark"]).optional()}),
   hero:z.object({title:z.string(),subtitle:z.string(),image:opt,cta:z.object({label:z.string(),action:z.string()})}),
   about:z.object({title:z.string(),text:z.string(),image:opt}).optional(),
   highlights:z.array(z.object({title:z.string(),text:z.string()})).optional(),
@@ -25,12 +25,12 @@ export type Facts={name:string;city:string;category?:string;description?:string;
 // Schéma envoyé au modèle IA : tous les champs sont obligatoires (exigé par les sorties structurées strictes).
 export const llmSchema=z.object({
   template:z.enum(templates),
-  primaryColor:z.string(),secondaryColor:z.string(),font:z.enum(["serif","sans"]),style:z.string(),
+  primaryColor:z.string(),secondaryColor:z.string(),font:z.enum(["serif","sans"]),style:z.string(),mode:z.enum(["light","dark"]),
   heroTitle:z.string(),heroSubtitle:z.string(),ctaLabel:z.string(),ctaAction:z.enum(["call","directions","quote","booking"]),
   aboutTitle:z.string(),aboutText:z.string(),
   highlights:z.array(z.object({title:z.string(),text:z.string()})),
   services:z.array(z.object({name:z.string(),description:z.string()})),
   seoTitle:z.string(),seoDescription:z.string(),
 });
-export const llmEditSchema=llmSchema.extend({showGallery:z.boolean()});
+export const llmEditSchema=llmSchema.extend({showGallery:z.boolean(),note:z.string()});
 export type LlmContent=z.infer<typeof llmEditSchema>;

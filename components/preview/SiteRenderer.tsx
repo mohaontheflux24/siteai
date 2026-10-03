@@ -9,7 +9,7 @@ const Icon=({n,c="size-5"}:{n:keyof typeof I;c?:string})=><svg viewBox="0 0 24 2
 const DARK=["premium","bold","garage","restaurant","boutique"];
 export function SiteRenderer({site}:{site:GeneratedSite}){
   const {business:b,branding:br,hero,about,services,gallery,contact,highlights}=site;
-  const dark=DARK.includes(site.template), sharp=["minimal","bold","cabinet"].includes(site.template), serif=br.font==="serif";
+  const dark=br.mode?br.mode==="dark":DARK.includes(site.template), sharp=["minimal","bold","cabinet"].includes(site.template), serif=br.font==="serif";
   const r=sharp?"rounded-none":"rounded-2xl";
   const href=hero.cta.action==="call"&&contact.phone?`tel:${contact.phone}`:hero.cta.action==="directions"&&contact.mapUrl?contact.mapUrl:"#contact";
   const v={"--p":br.primaryColor,"--s":br.secondaryColor,"--bg":dark?"#0c0c0e":"#fbfaf8","--card":dark?"#17171a":"#ffffff","--fg":dark?"#f5f3ee":"#16161a","--mu":dark?"#a3a3ad":"#5b5b66","--ln":dark?"#2a2a30":"#e6e3dc",background:"var(--bg)",color:"var(--fg)",fontFamily:'system-ui,"Segoe UI",sans-serif'} as React.CSSProperties;
