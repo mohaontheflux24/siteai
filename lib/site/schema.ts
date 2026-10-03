@@ -7,6 +7,7 @@ const build=(color:z.ZodString)=>z.object({
   branding:z.object({logo:opt,primaryColor:color,secondaryColor:color,font:z.enum(["serif","sans"]),style:z.string()}),
   hero:z.object({title:z.string(),subtitle:z.string(),image:opt,cta:z.object({label:z.string(),action:z.string()})}),
   about:z.object({title:z.string(),text:z.string(),image:opt}).optional(),
+  highlights:z.array(z.object({title:z.string(),text:z.string()})).optional(),
   services:z.array(z.object({name:z.string(),description:z.string(),price:opt})),
   gallery:z.array(z.object({url:z.string(),alt:z.string(),source:z.string(),illustrative:z.boolean().optional()})).optional(),
   contact:z.object({phone:opt,address:opt,mapUrl:opt}),
@@ -27,6 +28,7 @@ export const llmSchema=z.object({
   primaryColor:z.string(),secondaryColor:z.string(),font:z.enum(["serif","sans"]),style:z.string(),
   heroTitle:z.string(),heroSubtitle:z.string(),ctaLabel:z.string(),ctaAction:z.enum(["call","directions","quote","booking"]),
   aboutTitle:z.string(),aboutText:z.string(),
+  highlights:z.array(z.object({title:z.string(),text:z.string()})),
   services:z.array(z.object({name:z.string(),description:z.string()})),
   seoTitle:z.string(),seoDescription:z.string(),
 });
