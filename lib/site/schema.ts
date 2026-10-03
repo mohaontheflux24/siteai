@@ -20,3 +20,15 @@ export type GeneratedSite=z.infer<typeof siteSchema>;
 export const fixColors=<T extends {branding:{primaryColor:string;secondaryColor:string}}>(s:T):T=>{const ok=(c:string,d:string)=>/^#[0-9a-fA-F]{6}$/.test(c)?c:d;return {...s,branding:{...s.branding,primaryColor:ok(s.branding.primaryColor,"#1F6F5C"),secondaryColor:ok(s.branding.secondaryColor,"#12231E")}}};
 export const contentSchema=siteSchema.pick({template:true,branding:true,hero:true,about:true,services:true,seo:true});
 export type Facts={name:string;city:string;category?:string;description?:string;address?:string;phone?:string;website?:string;email?:string;openingHours?:string[];socialLinks?:string[];services?:string[];logo?:string};
+
+// Schéma envoyé au modèle IA : tous les champs sont obligatoires (exigé par les sorties structurées strictes).
+export const llmSchema=z.object({
+  template:z.enum(templates),
+  primaryColor:z.string(),secondaryColor:z.string(),font:z.enum(["serif","sans"]),style:z.string(),
+  heroTitle:z.string(),heroSubtitle:z.string(),ctaLabel:z.string(),ctaAction:z.enum(["call","directions","quote","booking"]),
+  aboutTitle:z.string(),aboutText:z.string(),
+  services:z.array(z.object({name:z.string(),description:z.string()})),
+  seoTitle:z.string(),seoDescription:z.string(),
+});
+export const llmEditSchema=llmSchema.extend({showGallery:z.boolean()});
+export type LlmContent=z.infer<typeof llmEditSchema>;
